@@ -1,0 +1,42 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Baboon",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.baboon",
+					"match": "\\b(model|data|struct|contract|enum|adt|foreign|root|version|include|ns)\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.baboon",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.baboon",
+					"match": "\\\\[\\]btnfr'\"\\\\]"
+				},
+				{
+					"name": "constant.character.escape.baboon",
+					"match": "\\\\u[0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z][0-9a-zA-Z]"
+				},
+				{
+					"name": "constant.character.escape.baboon",
+					"match": "\\\\[0-9][0-9]?[0-9]?"
+				}
+			]
+		}
+	},
+	"scopeName": "source.baboon"
+}

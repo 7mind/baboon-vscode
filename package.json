@@ -1,0 +1,28 @@
+{
+  "name": "baboon-vscode",
+  "displayName": "baboon-vscode",
+  "description": "Syntax highlighting for Baboon DML",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "devDependencies": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "baboon",
+      "aliases": ["Baboon", "baboon"],
+      "extensions": [".baboon",".model"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "baboon",
+      "scopeName": "source.baboon",
+      "path": "./syntaxes/baboon.tmLanguage.json"
+    }]
+  }
+}
