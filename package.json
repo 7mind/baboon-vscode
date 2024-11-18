@@ -13,16 +13,27 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "baboon",
-      "aliases": ["Baboon", "baboon"],
-      "extensions": [".baboon",".model"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "baboon",
-      "scopeName": "source.baboon",
-      "path": "./syntaxes/baboon.tmLanguage.json"
-    }]
-  }
+    "languages": [
+      {
+        "id": "baboon",
+        "aliases": [
+          "Baboon",
+          "baboon"
+        ],
+        "extensions": [
+          ".baboon",
+          ".model"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "baboon",
+        "scopeName": "source.baboon",
+        "path": "./syntaxes/baboon.tmLanguage.json"
+      }
+    ]
+  },
+  "repository": "https://github.com/7mind/baboon-vscode"
 }
