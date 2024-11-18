@@ -22,7 +22,7 @@
         ],
         "extensions": [
           ".baboon",
-          ".model"
+          ".bmo"
         ],
         "configuration": "./language-configuration.json"
       }
