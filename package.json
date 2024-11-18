@@ -2,7 +2,7 @@
   "name": "baboon-vscode",
   "displayName": "Baboon DML",
   "description": "Syntax highlighting for Baboon DML",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.95.0"
   },
