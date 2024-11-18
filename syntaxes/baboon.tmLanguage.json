@@ -19,6 +19,9 @@
 		},
 		{
 			"include": "#block-comments"
+		},
+		{
+			"include": "#directives"
 		}
 	],
 	"repository": {
@@ -115,11 +118,9 @@
 		"declarations": {
 			"patterns": [
 				{
-					"include": "#instructions"
-				},
-				{
-					"match": "\\b(root\\s+)?(data|struct|contract|enum|adt|foreign)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
-					"captures": {
+					"begin": "\\b(root\\s+)?(data|struct|contract|adt)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
+					"end": "\\s*[}]",
+					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
 						},
@@ -129,7 +130,69 @@
 						"3": {
 							"name": "entity.name.class.declaration.baboon"
 						}
-					}
+					},
+					"patterns": [
+						{
+							"include": "#instructions"
+						}
+					]
+				},
+				{
+					"begin": "\\b(root\\s+)?(enum)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
+					"end": "\\s*[}]",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "keyword.declaration.baboon"
+						},
+						"3": {
+							"name": "entity.name.class.declaration.baboon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#instructions-enum"
+						}
+					]
+				},
+				{
+					"begin": "\\b(root\\s+)?(foreign)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
+					"end": "\\s*[}]",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "keyword.declaration.baboon"
+						},
+						"3": {
+							"name": "entity.name.class.declaration.baboon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#keywords"
+						},
+						{
+							"include": "#comments"
+						},
+						{
+							"match": "([A-Z_a-z][A-Z_a-z0-9]*)\\s*[=]\\s*",
+							"captures": {
+								"1": {
+									"name": "keyword.control.baboon"
+								},
+								"2": {
+									"name": "constant.numeric.baboon"
+								}
+							}
+						}
+					]
 				},
 				{
 					"match": "\\b(ns)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
@@ -141,17 +204,6 @@
 							"name": "entity.name.section.baboon"
 						}
 					}
-				},
-				{
-					"match": "\\b(model)\\s+([A-Z_a-z][A-Z_a-z0-9]*(?:[.][A-Z_a-z][A-Z_a-z0-9]*)*)\\b",
-					"captures": {
-						"1": {
-							"name": "keyword.declaration.baboon"
-						},
-						"2": {
-							"name": "storage.modifier.package.baboon"
-						}
-					}
 				}
 			]
 		},
@@ -161,7 +213,7 @@
 					"match": "\\b([A-Z_a-z][A-Z_a-z0-9]*)\\s*[:]\\s*([A-Z_a-z][A-Z_a-z0-9\\s\\[\\]\\,\\.]*)\\b",
 					"captures": {
 						"1": {
-							"name": "variable.parameter.baboon"
+							"name": "entity.name.tag.baboon"
 						},
 						"2": {
 							"name": "support.type.baboon"
@@ -191,6 +243,42 @@
 					}
 				},
 				{
+					"include": "#declarations"
+				},
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"instructions-enum": {
+			"patterns": [
+				{
+					"match": "([A-Z_a-z][A-Z_a-z0-9]*)\\s*[=]\\s*([-]?[0-9]+)",
+					"captures": {
+						"1": {
+							"name": "support.type.baboon"
+						},
+						"2": {
+							"name": "constant.numeric.baboon"
+						}
+					}
+				},
+				{
+					"match": "([A-Z_a-z][A-Z_a-z0-9]*)",
+					"captures": {
+						"1": {
+							"name": "support.type.baboon"
+						}
+					}
+				},
+				{
+					"include": "#comments"
+				}
+			]
+		},
+		"directives": {
+			"patterns": [
+				{
 					"begin": "\\b(version|include)",
 					"end": "\\b",
 					"patterns": [
@@ -201,6 +289,17 @@
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
+						}
+					}
+				},
+				{
+					"match": "\\b(model)\\s+([A-Z_a-z][A-Z_a-z0-9]*(?:[.][A-Z_a-z][A-Z_a-z0-9]*)*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "storage.modifier.package.baboon"
 						}
 					}
 				}
