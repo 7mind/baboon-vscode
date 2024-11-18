@@ -1,8 +1,8 @@
 {
   "name": "baboon-vscode",
-  "displayName": "baboon-vscode",
+  "displayName": "Baboon DML",
   "description": "Syntax highlighting for Baboon DML",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.95.0"
   },
@@ -36,5 +36,6 @@
     ]
   },
   "repository": "https://github.com/7mind/baboon-vscode",
-  "publisher": "SeptimalMind"
+  "publisher": "SeptimalMind",
+  "icon": "baboon.png"
 }
