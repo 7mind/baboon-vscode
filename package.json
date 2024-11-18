@@ -35,5 +35,6 @@
       }
     ]
   },
-  "repository": "https://github.com/7mind/baboon-vscode"
+  "repository": "https://github.com/7mind/baboon-vscode",
+  "publisher": "SeptimalMind"
 }
