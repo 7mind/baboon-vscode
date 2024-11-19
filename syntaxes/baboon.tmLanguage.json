@@ -118,8 +118,8 @@
 		"declarations": {
 			"patterns": [
 				{
-					"begin": "\\b(root\\s+)?(data|struct|contract|adt)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
-					"end": "\\s*[}]",
+					"begin": "\\b(root\\s+)?(data|struct|contract|adt)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
+					"end": "}",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
@@ -138,8 +138,8 @@
 					]
 				},
 				{
-					"begin": "\\b(root\\s+)?(enum)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
-					"end": "\\s*[}]",
+					"begin": "\\b(root\\s+)?(enum)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
+					"end": "}",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
@@ -158,8 +158,8 @@
 					]
 				},
 				{
-					"begin": "\\b(root\\s+)?(foreign)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*[{]",
-					"end": "\\s*[}]",
+					"begin": "\\b(root\\s+)?(foreign)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
+					"end": "}",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
@@ -195,15 +195,21 @@
 					]
 				},
 				{
-					"match": "\\b(ns)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
-					"captures": {
+					"begin": "\\b(ns)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
+					"end": "}",
+					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
 						},
 						"2": {
 							"name": "entity.name.section.baboon"
 						}
-					}
+					},
+					"patterns": [
+						{
+							"include": "#declarations"
+						}
+					]
 				}
 			]
 		},
