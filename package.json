@@ -4,7 +4,7 @@
   "description": "Syntax highlighting for Baboon DML",
   "version": "0.0.6",
   "engines": {
-    "vscode": "^1.95.0"
+    "vscode": "*"
   },
   "devDependencies": {
     "vscode": "^1.95.0"
