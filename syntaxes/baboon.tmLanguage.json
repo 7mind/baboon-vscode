@@ -134,6 +134,9 @@
 					"patterns": [
 						{
 							"include": "#instructions"
+						},
+						{
+							"include": "#derivations"
 						}
 					]
 				},
@@ -154,6 +157,29 @@
 					"patterns": [
 						{
 							"include": "#instructions-enum"
+						},
+						{
+							"include": "#derivations"
+						}
+					]
+				},
+				{
+					"begin": "\\b(root\\s+)?(service)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
+					"end": "}",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "keyword.declaration.baboon"
+						},
+						"3": {
+							"name": "entity.name.class.declaration.baboon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#instructions-service"
 						}
 					]
 				},
@@ -256,6 +282,7 @@
 				}
 			]
 		},
+		"instructions-service": {},
 		"instructions-enum": {
 			"patterns": [
 				{
@@ -316,6 +343,25 @@
 				{
 					"name": "keyword.declaration.baboon",
 					"match": "\\b(with)\\b"
+				}
+			]
+		},
+		"derivations": {
+			"patterns": [
+				{
+					"begin": "\\s*:\\s*(derived)",
+					"end": "{",
+					"patterns": [
+						{
+							"name": "entity.name.tag.baboon",
+							"match": "\\b([A-Z_a-z][A-Z_a-z0-9]*)\\b"
+						}
+					],
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						}
+					}
 				}
 			]
 		},
