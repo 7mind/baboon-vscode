@@ -10,3 +10,5 @@ flake.nix
 pub.sh
 **/*.map
 .eslintrc.json
+node_modules/**
+esbuild.js
