@@ -26,7 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
   const rawModelDir = config.get<string>('modelDir') || '';
 
   const serverPath = substituteVariables(rawServerPath);
-  const modelDir = substituteVariables(rawModelDir);
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+  const modelDir = rawModelDir ? substituteVariables(rawModelDir) : workspaceFolder;
   const serverArgs = modelDir ? ['--model-dir', modelDir, ':lsp'] : [':lsp'];
 
   outputChannel.appendLine(`Server Path: ${serverPath}`);

@@ -16,7 +16,7 @@ To use the LSP features (diagnostics, navigation, etc.), you need the Baboon com
 This extension provides the following configuration settings:
 
 * `baboon.serverPath`: Path to the Baboon compiler executable. Defaults to `baboon`.
-* `baboon.modelDir`: Path to the Baboon model directory. The LSP server is started with `--model-dir <modelDir> :lsp`.
+* `baboon.modelDir`: Path to the Baboon model directory. Defaults to the workspace folder. The LSP server is started with `--model-dir <modelDir> :lsp`.
 
 ## Development
 
