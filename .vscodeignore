@@ -12,3 +12,4 @@ pub.sh
 .eslintrc.json
 node_modules/**
 esbuild.js
+out/test/**
