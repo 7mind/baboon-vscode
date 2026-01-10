@@ -14,6 +14,12 @@
     "onLanguage:baboon"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "baboon.restartLsp",
+        "title": "Baboon: Restart LSP Server"
+      }
+    ],
     "languages": [
       {
         "id": "baboon",
@@ -44,10 +50,29 @@
           "default": "baboon",
           "description": "Path to the Baboon compiler executable. Supports ${workspaceFolder} variable."
         },
-        "baboon.modelDir": {
-          "type": "string",
-          "default": "",
-          "description": "Path to the Baboon model directory. Supports ${workspaceFolder} variable."
+        "baboon.modelDirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Paths to Baboon model directories. Supports ${workspaceFolder} variable. Defaults to workspace folder if empty."
+        },
+        "baboon.serverOptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional options to prepend to the server arguments. Supports ${workspaceFolder} variable."
+        },
+        "baboon.serverArgsOverride": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Fully override server arguments. When set, modelDirs and serverOptions are ignored. Supports ${workspaceFolder} variable."
         }
       }
     }

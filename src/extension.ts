@@ -1,4 +1,3 @@
-import * as path from 'path';
 import * as vscode from 'vscode';
 import {
   LanguageClient,
@@ -7,7 +6,8 @@ import {
   Executable
 } from 'vscode-languageclient/node';
 
-let client: LanguageClient;
+let client: LanguageClient | undefined;
+let outputChannel: vscode.OutputChannel;
 
 function substituteVariables(value: string): string {
   const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
@@ -17,29 +17,36 @@ function substituteVariables(value: string): string {
   return value;
 }
 
-export function activate(context: vscode.ExtensionContext) {
-  const outputChannel = vscode.window.createOutputChannel("Baboon LSP");
-  outputChannel.appendLine("Baboon LSP extension activating...");
-
+async function startClient(): Promise<void> {
   const config = vscode.workspace.getConfiguration('baboon');
   const rawServerPath = config.get<string>('serverPath') || 'baboon';
-  const rawModelDir = config.get<string>('modelDir') || '';
+  const rawModelDirs = config.get<string[]>('modelDirs') || [];
+  const rawServerOptions = config.get<string[]>('serverOptions') || [];
+  const rawServerArgsOverride = config.get<string[]>('serverArgsOverride') || [];
 
   const serverPath = substituteVariables(rawServerPath);
   const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
-  const modelDir = rawModelDir ? substituteVariables(rawModelDir) : workspaceFolder;
-  const serverArgs = modelDir ? ['--model-dir', modelDir, ':lsp'] : [':lsp'];
+
+  let serverArgs: string[];
+  if (rawServerArgsOverride.length > 0) {
+    serverArgs = rawServerArgsOverride.map(substituteVariables);
+  } else {
+    const serverOptions = rawServerOptions.map(substituteVariables);
+    const modelDirs = rawModelDirs.length > 0
+      ? rawModelDirs.map(substituteVariables)
+      : (workspaceFolder ? [workspaceFolder] : []);
+    serverArgs = [...serverOptions, ...modelDirs.flatMap(dir => ['--model-dir', dir]), ':lsp'];
+  }
 
   outputChannel.appendLine(`Server Path: ${serverPath}`);
-  outputChannel.appendLine(`Model Dir: ${modelDir}`);
   outputChannel.appendLine(`Server Args: ${serverArgs.join(' ')}`);
 
   const run: Executable = {
-      command: serverPath,
-      args: serverArgs,
-      options: {
-          env: { ...process.env }
-      }
+    command: serverPath,
+    args: serverArgs,
+    options: {
+      env: { ...process.env }
+    }
   };
 
   const serverOptions: ServerOptions = {
@@ -59,16 +66,46 @@ export function activate(context: vscode.ExtensionContext) {
     clientOptions
   );
 
-  client.start().then(() => {
-    outputChannel.appendLine("Baboon LSP client started.");
-  }).catch(err => {
-    outputChannel.appendLine(`Baboon LSP client failed to start: ${err}`);
+  await client.start();
+  outputChannel.appendLine("Baboon LSP client started.");
+}
+
+async function stopClient(): Promise<void> {
+  if (client) {
+    await client.stop();
+    client = undefined;
+  }
+}
+
+async function restartClient(): Promise<void> {
+  outputChannel.appendLine("Restarting Baboon LSP...");
+  await stopClient();
+  await startClient();
+}
+
+export function activate(context: vscode.ExtensionContext) {
+  outputChannel = vscode.window.createOutputChannel("Baboon LSP");
+  outputChannel.appendLine("Baboon LSP extension activating...");
+
+  const restartCommand = vscode.commands.registerCommand('baboon.restartLsp', async () => {
+    try {
+      await restartClient();
+      vscode.window.showInformationMessage('Baboon LSP restarted.');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      outputChannel.appendLine(`Failed to restart Baboon LSP: ${message}`);
+      vscode.window.showErrorMessage(`Failed to restart Baboon LSP: ${message}`);
+    }
+  });
+
+  context.subscriptions.push(restartCommand);
+
+  startClient().catch(err => {
+    const message = err instanceof Error ? err.message : String(err);
+    outputChannel.appendLine(`Baboon LSP client failed to start: ${message}`);
   });
 }
 
 export function deactivate(): Thenable<void> | undefined {
-  if (!client) {
-    return undefined;
-  }
-  return client.stop();
+  return stopClient();
 }
