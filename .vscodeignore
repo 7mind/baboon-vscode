@@ -3,3 +3,10 @@
 .gitignore
 vsc-extension-quickstart.md
 .direnv
+src/**
+tsconfig.json
+flake.lock
+flake.nix
+pub.sh
+**/*.map
+.eslintrc.json

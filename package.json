@@ -1,16 +1,17 @@
 {
   "name": "baboon-vscode",
   "displayName": "Baboon DML",
-  "description": "Syntax highlighting for Baboon DML",
-  "version": "0.0.9",
+  "description": "Baboon DML Language Support",
+  "version": "0.0.10",
   "engines": {
-    "vscode": "*"
-  },
-  "devDependencies": {
     "vscode": "^1.95.0"
   },
   "categories": [
     "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:baboon"
   ],
   "contributes": {
     "languages": [
@@ -33,9 +34,53 @@
         "scopeName": "source.baboon",
         "path": "./syntaxes/baboon.tmLanguage.json"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Baboon Configuration",
+      "properties": {
+        "baboon.serverPath": {
+          "type": "string",
+          "default": "baboon",
+          "description": "Path to the Baboon compiler executable."
+        },
+        "baboon.serverArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ":lsp"
+          ],
+          "description": "Arguments to pass to the Baboon compiler for LSP mode."
+        }
+      }
+    }
   },
   "repository": "https://github.com/7mind/baboon-vscode",
   "publisher": "SeptimalMind",
-  "icon": "baboon.png"
+  "icon": "baboon.png",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.95.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.0.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  }
 }
