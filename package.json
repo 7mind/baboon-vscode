@@ -2,7 +2,7 @@
   "name": "baboon-vscode",
   "displayName": "Baboon DML",
   "description": "Baboon DML Language Support",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "engines": {
     "vscode": "^1.95.0"
   },
