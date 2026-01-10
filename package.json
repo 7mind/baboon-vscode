@@ -44,15 +44,10 @@
           "default": "baboon",
           "description": "Path to the Baboon compiler executable. Supports ${workspaceFolder} variable."
         },
-        "baboon.serverArgs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "default": [
-            ":lsp"
-          ],
-          "description": "Arguments to pass to the Baboon compiler for LSP mode. Supports ${workspaceFolder} variable."
+        "baboon.modelDir": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the Baboon model directory. Supports ${workspaceFolder} variable."
         }
       }
     }

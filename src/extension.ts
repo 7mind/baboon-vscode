@@ -23,13 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
 
   const config = vscode.workspace.getConfiguration('baboon');
   const rawServerPath = config.get<string>('serverPath') || 'baboon';
-  const rawServerArgs = config.get<string[]>('serverArgs') || [':lsp'];
+  const rawModelDir = config.get<string>('modelDir') || '';
 
   const serverPath = substituteVariables(rawServerPath);
-  const serverArgs = rawServerArgs.map(substituteVariables);
-  
-  // Debug info
+  const modelDir = substituteVariables(rawModelDir);
+  const serverArgs = modelDir ? ['--model-dir', modelDir, ':lsp'] : [':lsp'];
+
   outputChannel.appendLine(`Server Path: ${serverPath}`);
+  outputChannel.appendLine(`Model Dir: ${modelDir}`);
   outputChannel.appendLine(`Server Args: ${serverArgs.join(' ')}`);
 
   const run: Executable = {
