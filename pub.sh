@@ -2,6 +2,11 @@
 
 set -xe
 
+# vsce login SeptimalMind
+# npx ovsx login SeptimalMind
+
+npm install
+
 npm version patch
 
 # vsce login SeptimalMind
