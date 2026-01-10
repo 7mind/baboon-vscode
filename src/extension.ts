@@ -9,14 +9,24 @@ import {
 
 let client: LanguageClient;
 
+function substituteVariables(value: string): string {
+  const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+  if (workspaceFolder) {
+    return value.replace(/\$\{workspaceFolder\}/g, workspaceFolder);
+  }
+  return value;
+}
+
 export function activate(context: vscode.ExtensionContext) {
   const outputChannel = vscode.window.createOutputChannel("Baboon LSP");
   outputChannel.appendLine("Baboon LSP extension activating...");
 
   const config = vscode.workspace.getConfiguration('baboon');
-  // Default to 'baboon' command in PATH, or allow user to override
-  const serverPath = config.get<string>('serverPath') || 'baboon';
-  const serverArgs = config.get<string[]>('serverArgs') || [':lsp'];
+  const rawServerPath = config.get<string>('serverPath') || 'baboon';
+  const rawServerArgs = config.get<string[]>('serverArgs') || [':lsp'];
+
+  const serverPath = substituteVariables(rawServerPath);
+  const serverArgs = rawServerArgs.map(substituteVariables);
   
   // Debug info
   outputChannel.appendLine(`Server Path: ${serverPath}`);

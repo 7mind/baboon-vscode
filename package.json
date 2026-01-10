@@ -42,7 +42,7 @@
         "baboon.serverPath": {
           "type": "string",
           "default": "baboon",
-          "description": "Path to the Baboon compiler executable."
+          "description": "Path to the Baboon compiler executable. Supports ${workspaceFolder} variable."
         },
         "baboon.serverArgs": {
           "type": "array",
@@ -52,7 +52,7 @@
           "default": [
             ":lsp"
           ],
-          "description": "Arguments to pass to the Baboon compiler for LSP mode."
+          "description": "Arguments to pass to the Baboon compiler for LSP mode. Supports ${workspaceFolder} variable."
         }
       }
     }
