@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/25.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/25.11";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   outputs =
@@ -17,6 +17,7 @@
           nativeBuildInputs = with pkgs.buildPackages; [
             vsce
             nodejs_24
+            typescript
           ];
         };
       }
