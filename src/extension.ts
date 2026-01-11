@@ -79,7 +79,14 @@ async function stopClient(): Promise<void> {
 
 async function restartClient(): Promise<void> {
   outputChannel.appendLine("Restarting Baboon LSP...");
-  await stopClient();
+  try {
+    await stopClient();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    outputChannel.appendLine(`Failed to stop client during restart: ${message}`);
+    // Ensure client is cleared if stop failed, so we can try creating a new one
+    client = undefined;
+  }
   await startClient();
 }
 
