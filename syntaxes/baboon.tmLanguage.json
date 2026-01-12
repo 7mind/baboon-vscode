@@ -137,6 +137,9 @@
 						},
 						{
 							"include": "#derivations"
+						},
+						{
+							"include": "#renames"
 						}
 					]
 				},
@@ -160,6 +163,9 @@
 						},
 						{
 							"include": "#derivations"
+						},
+						{
+							"include": "#renames"
 						}
 					]
 				},
@@ -355,6 +361,25 @@
 						{
 							"name": "entity.name.tag.baboon",
 							"match": "\\b([A-Z_a-z][A-Z_a-z0-9]*)\\b"
+						}
+					],
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						}
+					}
+				}
+			]
+		},
+		"renames": {
+			"patterns": [
+				{
+					"begin": "\\s*:\\s*(was)",
+					"end": "{",
+					"patterns": [
+						{
+							"name": "support.type.baboon",
+							"match": "\\b([A-Z_a-z][A-Z_a-z0-9\\s\\[\\]\\,\\.\\:]*)\\b"
 						}
 					],
 					"beginCaptures": {
