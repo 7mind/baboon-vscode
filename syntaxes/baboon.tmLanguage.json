@@ -248,13 +248,19 @@
 		"instructions": {
 			"patterns": [
 				{
-					"match": "\\b([A-Z_a-z][A-Z_a-z0-9]*)\\s*[:]\\s*([A-Z_a-z][A-Z_a-z0-9\\s\\[\\]\\,\\.]*)\\b",
+					"match": "\\b([A-Z_a-z][A-Z_a-z0-9]*)\\s*[:]\\s*([A-Z_a-z][A-Z_a-z0-9\\.]*(?:\\[[A-Z_a-z0-9\\s\\,\\.\\[\\]]*\\])?)(?:\\s+(was)\\s+([A-Z_a-z][A-Z_a-z0-9]*))?",
 					"captures": {
 						"1": {
 							"name": "entity.name.tag.baboon"
 						},
 						"2": {
 							"name": "support.type.baboon"
+						},
+						"3": {
+							"name": "keyword.declaration.baboon"
+						},
+						"4": {
+							"name": "entity.name.tag.baboon"
 						}
 					}
 				},
