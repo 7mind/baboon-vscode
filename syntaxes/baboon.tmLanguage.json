@@ -369,6 +369,22 @@
 					}
 				},
 				{
+					"match": "\\b(pragma)\\s+([A-Z_a-z][A-Z_a-z0-9]*(?:[.][A-Z_a-z][A-Z_a-z0-9]*)*)\\s*[=]\\s*",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "variable.other.constant.baboon"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#strings"
+						}
+					]
+				},
+				{
 					"match": "\\b(model)\\s+([A-Z_a-z][A-Z_a-z0-9]*(?:[.][A-Z_a-z][A-Z_a-z0-9]*)*)\\b",
 					"captures": {
 						"1": {
