@@ -242,6 +242,23 @@
 							"include": "#declarations"
 						}
 					]
+				},
+				{
+					"match": "\\b(root\\s+)?(type)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\s*=\\s*([A-Z_a-z][A-Z_a-z0-9\\.]*(?:\\[[A-Z_a-z0-9\\s\\,\\.\\[\\]]*\\])?)",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "keyword.declaration.baboon"
+						},
+						"3": {
+							"name": "entity.name.class.declaration.baboon"
+						},
+						"4": {
+							"name": "support.type.baboon"
+						}
+					}
 				}
 			]
 		},
@@ -294,7 +311,40 @@
 				}
 			]
 		},
-		"instructions-service": {},
+		"instructions-service": {
+			"patterns": [
+				{
+					"match": "\\b(def)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "entity.name.function.baboon"
+						}
+					}
+				},
+				{
+					"name": "keyword.declaration.baboon",
+					"match": "\\b(in|out|err)\\b"
+				},
+				{
+					"include": "#instructions"
+				},
+				{
+					"include": "#declarations"
+				},
+				{
+					"include": "#bi-types"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
 		"instructions-enum": {
 			"patterns": [
 				{
@@ -367,6 +417,27 @@
 							"name": "keyword.declaration.baboon"
 						}
 					}
+				},
+				{
+					"begin": "\\b(import)\\b",
+					"end": "(?=\\b(data|struct|enum|adt|contract|foreign|service|ns|root|type|model|version|pragma|include|import)\\b)",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						}
+					},
+					"patterns": [
+						{
+							"name": "keyword.declaration.baboon",
+							"match": "\\b(without)\\b"
+						},
+						{
+							"include": "#strings"
+						},
+						{
+							"include": "#comments"
+						}
+					]
 				},
 				{
 					"match": "\\b(pragma)\\s+([A-Z_a-z][A-Z_a-z0-9]*(?:[.][A-Z_a-z][A-Z_a-z0-9]*)*)\\s*[=]\\s*",
@@ -447,7 +518,7 @@
 			"patterns": [
 				{
 					"name": "support.type.baboon",
-					"match": "\\b(bit|i08|i16|i32|i64|u08|u16|u32|u64|f32|f64|f128|str|uid|tsu|tso|map|opt|lst|set)\\b"
+					"match": "\\b(bit|i08|i16|i32|i64|u08|u16|u32|u64|f32|f64|f128|str|uid|tsu|tso|bytes|map|opt|lst|set)\\b"
 				}
 			]
 		},
