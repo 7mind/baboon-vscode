@@ -118,7 +118,7 @@
 		"declarations": {
 			"patterns": [
 				{
-					"begin": "\\b(root\\s+)?(data|struct|contract|adt)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
+					"begin": "\\b(root\\s+)?(data|struct|contract|adt|id)\\s+([A-Z_a-z][A-Z_a-z0-9]*)",
 					"end": "}",
 					"beginCaptures": {
 						"1": {
@@ -420,7 +420,7 @@
 				},
 				{
 					"begin": "\\b(import)\\b",
-					"end": "(?=\\b(data|struct|enum|adt|contract|foreign|service|ns|root|type|model|version|pragma|include|import)\\b)",
+					"end": "(?=\\b(data|struct|enum|adt|contract|foreign|service|ns|root|type|model|version|pragma|include|import|id)\\b)",
 					"beginCaptures": {
 						"1": {
 							"name": "keyword.declaration.baboon"
