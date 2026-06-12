@@ -304,6 +304,20 @@
 					}
 				},
 				{
+					"match": "\\b(has)\\s+(mirror|contract)\\s+([A-Z_a-z][A-Z_a-z0-9]*)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.declaration.baboon"
+						},
+						"2": {
+							"name": "keyword.declaration.baboon"
+						},
+						"3": {
+							"name": "support.type.baboon"
+						}
+					}
+				},
+				{
 					"include": "#declarations"
 				},
 				{
